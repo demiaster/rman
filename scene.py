@@ -19,22 +19,40 @@ ri.Projection(ri.PERSPECTIVE)
 
 ri.WorldBegin()
 
-ri.Translate(0, 0, 2)
+ri.Translate(0, -1, 4)
 
 # the pointy end
+
 ri.TransformBegin()
-end_height = 0.3
+end_height = 0.35
+metal_radius = 0.06
 ri.Translate(0, end_height, 0)
+ri.TransformBegin()
 ri.Rotate(90, 1, 0, 0)
-ri.Cone(end_height, 0.1, 360)
+ri.Cone(end_height, metal_radius, 360)
 ri.TransformEnd()
 
 #the metal thing
-#ri.TransformBegin()
-#ri.Rotate(-90, 1, 0, 0)
-#ri.Cilinder(0.3, 0.1, 360)
-#ri.TransformEnd()
+metal_height = 0.9
+ri.TransformBegin()
+ri.Rotate(-90, 1, 0, 0)
+ri.Cylinder(metal_radius, 0, metal_height, 360)
+ri.TransformEnd()
 
+# base for bowly shaped thing
+ri.TransformBegin()
+ri.Translate(0, metal_height, 0)
+ri.TransformBegin()
+ri.Rotate(-90, 1, 0, 0)
+disk_radius = 0.45
+ri.Disk(0, disk_radius, 360)
+ri.TransformEnd()
+
+# bowly thing
+
+
+ri.TransformEnd()
+ri.TransformEnd()
 # end of the world
 ri.WorldEnd()
 
