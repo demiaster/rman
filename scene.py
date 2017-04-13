@@ -19,10 +19,9 @@ ri.Projection(ri.PERSPECTIVE)
 
 ri.WorldBegin()
 
-ri.Translate(0, -1, 4)
+ri.Translate(0, -1.5, 4)
 
 # the pointy end
-
 ri.TransformBegin()
 end_height = 0.35
 metal_radius = 0.06
@@ -58,7 +57,7 @@ y_min = 0.05
 ri.Sphere(bowl_radius, y_min, y_max, 360)
 ri.TransformEnd()
 
-#plastic body
+# plastic body
 ri.TransformBegin()
 ri.Translate(0, y_max - y_min, 0)
 ri.TransformBegin()
@@ -71,10 +70,48 @@ p_top = [body_tr, 0, body_height]
 ri.Hyperboloid(p_base, p_top, 360)
 ri.TransformEnd()
 
+# top base (tb)
+ri.TransformBegin()
+ri.Translate(0, body_height, 0)
+ri.TransformBegin()
+ri.Rotate(-90, 1, 0, 0)
+tb_height = 0.08
+tb_br = body_tr
+tb_tr = 0.375
+tb_p_base = [tb_br, 0, 0]
+tb_p_top = [tb_tr, 0, tb_height]
+ri.Hyperboloid(tb_p_base, tb_p_top, 360)
+ri.TransformEnd()
+
+# top top (tt)
+ri.TransformBegin()
+ri.Translate(0, tb_height, 0)
+ri.TransformBegin()
+ri.Rotate(-90, 1, 0, 0)
+tt_height = 0.08
+tt_br = tb_tr
+tt_tr = 0.35
+tt_p_base = [tt_br, 0, 0]
+tt_p_top = [tt_tr, 0, tt_height]
+ri.Hyperboloid(tt_p_base, tt_p_top, 360)
+ri.TransformEnd()
+
+# top cup (tc)
+ri.TransformBegin()
+ri.Translate(0, tt_height, 0)
+ri.TransformBegin()
+ri.Rotate(-90, 1, 0, 0)
+tc_radius = tt_tr
+ri.Disk(0, tc_radius, 360)
+ri.TransformEnd()
 
 ri.TransformEnd()
 ri.TransformEnd()
 ri.TransformEnd()
+ri.TransformEnd()
+ri.TransformEnd()
+ri.TransformEnd()
+
 # end of the world
 ri.WorldEnd()
 
