@@ -4,6 +4,14 @@ import time
 import prman
 import math
 
+def hyperboloid_wrapper(height, base_radius, top_radius):
+    ri.TransformBegin()
+    ri.Rotate(-90, 1, 0, 0)
+    p_base = [base_radius, 0, 0]
+    p_top = [top_radius, 0, height]
+    ri.Hyperboloid(p_base, p_top, 360)
+    ri.TransformEnd()
+
 ri = prman.Ri()
 
 filename = "scene.rib"
@@ -60,45 +68,27 @@ ri.TransformEnd()
 # plastic body
 ri.TransformBegin()
 ri.Translate(0, y_max - y_min, 0)
-ri.TransformBegin()
-ri.Rotate(-90, 1, 0, 0)
 body_height = 0.7
 body_br = 0.2
 body_tr = 0.15
-p_base = [body_br, 0, 0]
-p_top = [body_tr, 0, body_height]
-ri.Hyperboloid(p_base, p_top, 360)
-ri.TransformEnd()
+hyperboloid_wrapper(body_height, body_br, body_tr)
 
 # top base (tb)
 ri.TransformBegin()
 ri.Translate(0, body_height, 0)
-ri.TransformBegin()
-ri.Rotate(-90, 1, 0, 0)
 tb_height = 0.08
-tb_br = body_tr
 tb_tr = 0.375
-tb_p_base = [tb_br, 0, 0]
-tb_p_top = [tb_tr, 0, tb_height]
-ri.Hyperboloid(tb_p_base, tb_p_top, 360)
-ri.TransformEnd()
+hyperboloid_wrapper(tb_height, body_tr, tb_tr)
 
 # top top (tt)
 ri.TransformBegin()
 ri.Translate(0, tb_height, 0)
-ri.TransformBegin()
-ri.Rotate(-90, 1, 0, 0)
-tt_height = 0.08
-tt_br = tb_tr
 tt_tr = 0.35
-tt_p_base = [tt_br, 0, 0]
-tt_p_top = [tt_tr, 0, tt_height]
-ri.Hyperboloid(tt_p_base, tt_p_top, 360)
-ri.TransformEnd()
+hyperboloid_wrapper(tb_height, tb_tr, tt_tr)
 
 # top cup (tc)
 ri.TransformBegin()
-ri.Translate(0, tt_height, 0)
+ri.Translate(0, tb_height, 0)
 ri.TransformBegin()
 ri.Rotate(-90, 1, 0, 0)
 tc_radius = tt_tr
