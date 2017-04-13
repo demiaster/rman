@@ -49,8 +49,30 @@ ri.Disk(0, disk_radius, 360)
 ri.TransformEnd()
 
 # bowly thing
+ri.TransformBegin()
+bowl_radius = 0.47
+ri.Translate(0, -0.05, 0)
+ri.Rotate(-90, 1, 0, 0)
+y_max = 0.433
+y_min = 0.05
+ri.Sphere(bowl_radius, y_min, y_max, 360)
+ri.TransformEnd()
+
+#plastic body
+ri.TransformBegin()
+ri.Translate(0, y_max - y_min, 0)
+ri.TransformBegin()
+ri.Rotate(-90, 1, 0, 0)
+body_height = 0.7
+body_br = 0.2
+body_tr = 0.15
+p_base = [body_br, 0, 0]
+p_top = [body_tr, 0, body_height]
+ri.Hyperboloid(p_base, p_top, 360)
+ri.TransformEnd()
 
 
+ri.TransformEnd()
 ri.TransformEnd()
 ri.TransformEnd()
 # end of the world
