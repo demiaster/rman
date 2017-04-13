@@ -18,6 +18,13 @@ filename = "scene.rib"
 
 ri.Begin(filename)
 
+# declare lights
+
+ri.Declare("Light1", "string")
+ri.Declare("Light2", "string")
+ri.Declare("Light3", "string")
+
+
 # set up the scene
 ri.Display("scene.exr", "framebuffer", "rgba")
 ri.Format(720, 575, 1)
@@ -107,4 +114,3 @@ ri.WorldEnd()
 
 # end of rib file
 ri.End()
-
