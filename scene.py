@@ -36,7 +36,7 @@ ri.Projection(ri.PERSPECTIVE)
 ri.WorldBegin()
 
 # place the lights
-ri.LightSource("ambientlight", {ri.HANDLEID:"Ambient", "float intensity": [0.05]})
+ri.LightSource("ambientlight", {ri.HANDLEID:"Ambient", "float intensity": [0.1]})
 
 ri.LightSource( "pointlight", {ri.HANDLEID:"Light1", "point from":[-2,2,4], "float intensity": [13]})
 
@@ -53,7 +53,19 @@ ri.Illuminate("Light1",1)
 ri.Illuminate("Light2",1)
 ri.Illuminate("Light3",1)
 
+#adjust camera position
 ri.Translate(0, -1.5, 4)
+ri.Rotate(-20, 1, 0, 0)
+
+# the groundplane
+ri.AttributeBegin()
+ri.Color([0.7, 0.7, 0.8])
+ri.Surface("plastic")
+face=[10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10]
+ri.Patch("bilinear",{'P':face})
+ri.AttributeEnd()
+
+ri.Rotate(45, 1, 0, 0)
 
 #model the pin
 # the pointy end
@@ -65,7 +77,7 @@ ri.TransformBegin()
 ri.AttributeBegin()
 ri.Color([1, 1, 1])
 ri.Rotate(90, 1, 0, 0)
-ri.Surface("plastic")
+ri.Surface("metal")
 ri.Cone(end_height, metal_radius, 360)
 ri.AttributeEnd()
 ri.TransformEnd()
@@ -76,7 +88,7 @@ ri.TransformBegin()
 ri.AttributeBegin()
 ri.Color([1,1,1])
 ri.Rotate(-90, 1, 0, 0)
-ri.Surface("plastic")
+ri.Surface("metal")
 ri.Cylinder(metal_radius, 0, metal_height, 360)
 ri.AttributeEnd()
 ri.TransformEnd()
