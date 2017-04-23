@@ -1,7 +1,8 @@
 #! /usr/bin/python
 import getpass
 import time
-import math
+# import the python functions
+import sys,os.path,subprocess
 
 # import the python renderman library
 import prman
@@ -13,6 +14,20 @@ ri = prman.Ri()
 ri.Option("rib", {"string asciistyle": "indented"})
 
 ###-------------------------------Function Section--------------------------###
+
+"""
+Jon Macey's function
+function to check if shader exists and compile it, we assume that the shader
+is .osl and the compiled shader is .oso If the shader source is newer than the
+compiled shader we will compile it. It also assumes that oslc is in the path.
+"""
+def checkAndCompileShader(shader) :
+	if os.path.isfile(shader+'.oso') != True  or os.stat(shader+'.osl').st_mtime - os.stat(shader+'.oso').st_mtime > 0 :
+		print "compiling shader %s" %(shader)
+		try :
+			subprocess.check_call(["oslc", shader+".osl"])
+		except subprocess.CalledProcessError :
+			sys.exit("shader compilation failed")
 
 # hyperboloid shapes in the pin
 def hyperboloid_wrapper(height, base_radius, top_radius):
