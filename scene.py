@@ -7,12 +7,6 @@ import sys,os.path,subprocess
 # import the python renderman library
 import prman
 
-# create an instance for the RenderMan interface
-ri = prman.Ri()
-
-# make the generated RIB file nicely indented
-ri.Option("rib", {"string asciistyle": "indented"})
-
 ###-------------------------------Function Section--------------------------###
 
 """
@@ -112,14 +106,16 @@ def Pin():
     ri.Rotate(-90, 1, 0, 0)
     y_max = 0.433
     y_min = 0.05
-    # ri.Pattern("PxrBump","ringBump",{
-    #                                 "string filename" : "bump.tx",
-    #                                 "float scale": 0.05,
-    #                                 "int invertT" : 0
-    #                             })
+    ri.Pattern("PxrBump","plasticBump",{
+                                    "string filename" : "scratch.tx",
+                                    "float scale": 0.003,
+                                    "int invertT" : 0
+                                })
     ri.Bxdf( "PxrDisney","bxdf", { 
                                   "color baseColor" : baseColorPlastic,
+                                  "reference normal bumpNormal" : ["plasticBump:resultN"],
                                   "float clearcoat" : [1],
+                                  "float specular" : [1],
                                   "float roughness" : [0]
                                  })
     ri.Sphere(bowl_radius, y_min, y_max, 360)
@@ -133,6 +129,21 @@ def Pin():
     body_height = 0.7
     body_br = 0.2
     body_tr = 0.15
+    ri.Attribute("trace", {
+        "displacements" : [1]
+    })
+    ri.Attribute("displacementbound", {
+        "sphere" : [1],
+        "coordinatesystem" : ["shader"]
+    })
+    ri.Pattern("PxrOSL","diskTx", {
+                                        "string shader"  : "randomDisk" 
+                                      })
+    ri.Displacement( "doDisplace", {
+        "float disp" : [0.1],
+        "reference float dispScalar" : ["diskTx:resultF"],
+        "float atten" : [1]
+    })
     ri.Bxdf( "PxrDisney","bxdf", { 
                                   "color baseColor" : baseColorPlastic,
                                   "float clearcoat" : [1],
@@ -160,8 +171,14 @@ def Pin():
     ri.AttributeBegin()
     ri.Translate(0, tb_height, 0)
     tt_tr = 0.35
+    ri.Pattern("PxrBump","plasticBump",{
+                                "string filename" : "scratch.tx",
+                                "float scale": 0.003,
+                                "int invertT" : 0
+                            })
     ri.Bxdf( "PxrDisney","bxdf", { 
                                   "color baseColor" : baseColorPlastic,
+                                  "reference normal bumpNormal" : ["plasticBump:resultN"],
                                   "float clearcoat" : [1],
                                   "float roughness" : [0]
                                  })
@@ -204,7 +221,14 @@ def Table():
     ri.ArchiveRecord(ri.COMMENT, '--!End of Table Function!--')
 
 ###-------------------------End of Function Section-------------------------###
+# check and compile shaders
+checkAndCompileShader('randomDisk')
 
+# create an instance for the RenderMan interface
+ri = prman.Ri()
+
+# make the generated RIB file nicely indented
+ri.Option("rib", {"string asciistyle": "indented"})
 
 filename = "scene.rib"
 # begin of RIB archive
@@ -227,7 +251,9 @@ ri.ShadingRate(10)
 #Use default to model, makes it easier.
 # ri.Integrator ("PxrDefault" , "integrator")
 
-#Path tracer for final lighting and shading. 
+#Path tracer for final lighting and shading.
+ri.Integrator ("PxrVCM" ,"integrator")
+ri.Integrator ("PxrDirectLighting" ,"integrator") 
 ri.Integrator ("PxrPathTracer" ,"integrator")
 
 # now set the projection to perspective
@@ -235,7 +261,7 @@ ri.Projection(ri.PERSPECTIVE,{ri.FOV:30} )
 
 #Move our camera into place.
 ri.Rotate(-25,1,0,0)
-ri.Translate(0,-6,12)
+ri.Translate(0,-4,6)
 
 # Begin The World
 ri.WorldBegin()
