@@ -106,11 +106,27 @@ def Pin():
     ri.Rotate(-90, 1, 0, 0)
     y_max = 0.433
     y_min = 0.05
-    ri.Pattern("PxrBump","plasticBump",{
-                                    "string filename" : "scratch.tx",
-                                    "float scale": 0.003,
-                                    "int invertT" : 0
+    ri.Attribute("trace", {
+                           "displacements" : [1]
+                          })
+    ri.Attribute("displacementbound", {
+                                       "sphere" : [1],
+                                       "coordinatesystem" : ["shader"]
+                                      })
+
+    ri.Pattern("PxrOSL","wave", {
+                                 "string shader"  : "wave" 
                                 })
+
+    ri.Displacement( "doDisplace", {
+                                    "reference float disp" : [ "wave:resultF" ],
+                                    "float atten" : [1]
+                                   })
+    ri.Pattern("PxrBump","plasticBump",{
+                                        "string filename" : "scratch.tx",
+                                        "float scale": 0.003,
+                                        "int invertT" : 0
+                                       })
     ri.Bxdf( "PxrDisney","bxdf", { 
                                   "color baseColor" : baseColorPlastic,
                                   "reference normal bumpNormal" : ["plasticBump:resultN"],
@@ -129,21 +145,6 @@ def Pin():
     body_height = 0.7
     body_br = 0.2
     body_tr = 0.15
-    ri.Attribute("trace", {
-        "displacements" : [1]
-    })
-    ri.Attribute("displacementbound", {
-        "sphere" : [1],
-        "coordinatesystem" : ["shader"]
-    })
-    ri.Pattern("PxrOSL","diskTx", {
-                                        "string shader"  : "randomDisk" 
-                                      })
-    ri.Displacement( "doDisplace", {
-        "float disp" : [0.1],
-        "reference float dispScalar" : ["diskTx:resultF"],
-        "float atten" : [1]
-    })
     ri.Bxdf( "PxrDisney","bxdf", { 
                                   "color baseColor" : baseColorPlastic,
                                   "float clearcoat" : [1],
