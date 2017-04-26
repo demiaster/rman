@@ -3,9 +3,11 @@
 # output images
 .tiff
 .exr
+.png
 
 # compiled shaders
-
+.slo
+.oso
 
 ### Linux ###
 *~
