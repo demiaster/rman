@@ -1,0 +1,12 @@
+surface topdisk (
+    float repetitions = 2,
+output	float resultF = 0
+)
+{
+    float fuzz = 0.0025;
+    float s;
+    s = cos(M_PI*v);
+    float inLine;
+    inLine = -smoothstep(0.3, 1, v);
+    resultF = inLine*0.05;
+}
