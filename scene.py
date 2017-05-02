@@ -115,7 +115,8 @@ def Pin():
                                       })
 
     ri.Pattern("PxrOSL","wave", {
-                                 "string shader"  : "wave" 
+                                 "string shader"  : "wave",
+                                 "float repetitions" : [2]
                                 })
 
     ri.Displacement( "doDisplace", {
@@ -145,6 +146,22 @@ def Pin():
     body_height = 0.7
     body_br = 0.2
     body_tr = 0.15
+    ri.Attribute("trace", {
+                           "displacements" : [1]
+                          })
+    ri.Attribute("displacementbound", {
+                                       "sphere" : [1],
+                                       "coordinatesystem" : ["shader"]
+                                      })
+
+    ri.Pattern("PxrOSL","wave", {
+                                 "string shader"  : "wave" 
+                                })
+
+    ri.Displacement( "doDisplace", {
+                                    "reference float disp" : [ "wave:resultF" ],
+                                    "float atten" : [1]
+                                   })
     ri.Bxdf( "PxrDisney","bxdf", { 
                                   "color baseColor" : baseColorPlastic,
                                   "float clearcoat" : [1],
@@ -159,6 +176,22 @@ def Pin():
     ri.AttributeBegin()
     tb_height = 0.08
     tb_tr = 0.375
+    ri.Attribute("trace", {
+                        "displacements" : [1]
+                        })
+    ri.Attribute("displacementbound", {
+                                       "sphere" : [1],
+                                       "coordinatesystem" : ["shader"]
+                                      })
+
+    ri.Pattern("PxrOSL","wave", {
+                                 "string shader"  : "wave" 
+                                })
+
+    ri.Displacement( "doDisplace", {
+                                    "reference float disp" : [ "wave:resultF" ],
+                                    "float atten" : [1]
+                                   })
     ri.Bxdf( "PxrDisney","bxdf", { 
                                   "color baseColor" : baseColorPlastic,
                                   "float clearcoat" : [1],
@@ -172,6 +205,22 @@ def Pin():
     ri.AttributeBegin()
     ri.Translate(0, tb_height, 0)
     tt_tr = 0.35
+    ri.Attribute("trace", {
+                        "displacements" : [1]
+                        })
+    ri.Attribute("displacementbound", {
+                                       "sphere" : [1],
+                                       "coordinatesystem" : ["shader"]
+                                      })
+
+    ri.Pattern("PxrOSL","wave", {
+                                 "string shader"  : "wave" 
+                                })
+
+    ri.Displacement( "doDisplace", {
+                                    "reference float disp" : [ "wave:resultF" ],
+                                    "float atten" : [1]
+                                   })
     ri.Pattern("PxrBump","plasticBump",{
                                 "string filename" : "scratch.tx",
                                 "float scale": 0.003,
@@ -223,7 +272,7 @@ def Table():
 
 ###-------------------------End of Function Section-------------------------###
 # check and compile shaders
-checkAndCompileShader('randomDisk')
+checkAndCompileShader('wave')
 
 # create an instance for the RenderMan interface
 ri = prman.Ri()
@@ -306,6 +355,7 @@ Table()
 ri.TransformBegin()
 # ri.Scale(5, 5, 5)
 ri.Rotate(30, 1, 0, 0)
+ri.Rotate(45, 0, 1, 0)
 Pin()
 ri.TransformEnd()
 
