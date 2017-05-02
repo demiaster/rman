@@ -87,14 +87,33 @@ def Pin():
     ri.Translate(0, metal_height, 0)
     ri.TransformBegin()
     ri.AttributeBegin()
-    ri.Rotate(-90, 1, 0, 0)
+    # ri.Rotate(-90, 1, 0, 0)
     disk_radius = 0.465
+    ri.Attribute("trace", {
+                        "displacements" : [1]
+                        })
+    ri.Attribute("displacementbound", {
+                                       "sphere" : [1],
+                                       "coordinatesystem" : ["shader"]
+                                      })
+
+    ri.Pattern("PxrOSL","disk", {
+                                 "string shader"  : "disk",
+                                 "float repetitions" : [2]
+                                })
+
+    ri.Displacement( "doDisplace", {
+                                "reference float disp" : [ "disk:resultF" ],
+                                "float atten" : [1]
+                                })
+
     ri.Bxdf( "PxrDisney","bxdf", { 
                                   "color baseColor" : baseColorPlastic,
                                   "float clearcoat" : [1],
                                   "float roughness" : [0]
                                  })
-    ri.Disk(0, disk_radius, 360)
+    # ri.Disk(0, disk_radius, 360)
+    hyperboloid_wrapper(0, metal_radius, disk_radius)
     ri.AttributeEnd()
     ri.TransformEnd()
 
@@ -238,9 +257,25 @@ def Pin():
     # top cup (tc)
     ri.TransformBegin()
     ri.AttributeBegin()
-    ri.Translate(0, tb_height, 0)
+    ri.Translate(0, 2*tb_height, 0)
     ri.Rotate(-90, 1, 0, 0)
     tc_radius = tt_tr
+    ri.Attribute("trace", {
+                        "displacements" : [1]
+                        })
+    ri.Attribute("displacementbound", {
+                                       "sphere" : [1],
+                                       "coordinatesystem" : ["shader"]
+                                      })
+
+    ri.Pattern("PxrOSL","topdisk", {
+                                 "string shader"  : "topdisk" 
+                                })
+
+    ri.Displacement( "doDisplace", {
+                                    "reference float disp" : [ "topdisk:resultF" ],
+                                    "float atten" : [1]
+                                   })
     ri.Bxdf( "PxrDisney","bxdf", { 
                                   "color baseColor" : baseColorPlastic,
                                   "float clearcoat" : [1],
@@ -273,6 +308,8 @@ def Table():
 ###-------------------------End of Function Section-------------------------###
 # check and compile shaders
 checkAndCompileShader('wave')
+checkAndCompileShader('disk')
+checkAndCompileShader('topdisk')
 
 # create an instance for the RenderMan interface
 ri = prman.Ri()
