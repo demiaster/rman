@@ -1,0 +1,12 @@
+surface disk (
+    float repetitions = 2,
+output	float resultF = 0
+)
+{
+    float fuzz = 0.0025;
+    float s;
+    s = cos(M_PI + M_PI*v);
+    float inLine;
+    inLine = s;
+    resultF = inLine*0.1;
+}
