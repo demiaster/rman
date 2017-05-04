@@ -1,16 +1,26 @@
 surface wave (
     float repetitions = 2,
+    int direction = 1,
+    float height = 0.005,
 output	float resultF = 0
 )
 {
     float fuzz = 0.0025;
-    float s = sin(repetitions*M_PI*u);
+    float s;
+    if (direction == 1)
+    {
+        s = sin(repetitions*M_PI*u);
+    }
+    else
+    {
+        s = sin(repetitions*M_PI*v);
+    }
     float dist = abs(s);
     dist += noise("perlin",P*101)*0.015;
     dist += noise("perlin",P*300)*0.007;
     float inLine = 1-smoothstep(0.005 - fuzz,0.005 + fuzz,dist);
-    resultF = inLine*0.005;
+    resultF = inLine*height;
     //resultF += noise("perlin",P*5)*0.1;
-    //resultF += noise("perlin",P*50)*0.002;
+    //resultF += noise("perlin",P*50)*height;
 
 }
