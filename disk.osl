@@ -5,8 +5,15 @@ output	float resultF = 0
 {
     float fuzz = 0.0025;
     float s;
-    s = cos(M_PI + M_PI*v);
+    s = cos(0.5*M_PI + M_PI*v);
     float inLine;
-    inLine = s;
-    resultF = inLine*0.1;
+    if(v < 0.97)
+    {
+        inLine = s + (float)noise("uperlin", v * 2000);
+    }
+    else
+    {
+        inLine = s;
+    }
+    resultF = inLine*0.02;
 }
