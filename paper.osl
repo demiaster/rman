@@ -1,0 +1,9 @@
+surface paper (
+output	float resultF = 0
+)
+{
+    //float inLine = noise("perlin",P*101)*0.015;
+    float inLine = noise("uperlin",P*300)*0.007;
+    resultF = inLine;
+
+}
