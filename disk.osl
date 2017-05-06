@@ -9,7 +9,7 @@ output	float resultF = 0
     float inLine;
     if(v < 0.97)
     {
-        inLine = s + (float)noise("uperlin", v * 2000);
+        inLine = s + (float)noise("uperlin", v * 101)*0.1;
     }
     else
     {
