@@ -24,6 +24,15 @@ def checkAndCompileShader(shader) :
         except subprocess.CalledProcessError :
             sys.exit("shader compilation failed")
 
+def checkAndCompileOldShader(shader) :
+    shader = "shaders/" + shader
+    if os.path.isfile(shader+'.slo') != True  or os.stat(shader+'.sl').st_mtime - os.stat(shader+'.slo').st_mtime > 0 :
+        print "compiling old shader %s" %(shader)
+        try :
+            subprocess.check_call(["shader", shader+".sl"])
+        except subprocess.CalledProcessError :
+            sys.exit("shader compilation failed")
+
 # cube shape for the room
 def Room(width,height,depth) :
     w=width/2.0
@@ -387,6 +396,7 @@ checkAndCompileShader('disk')
 checkAndCompileShader('topdisk')
 checkAndCompileShader('paper')
 checkAndCompileShader('envmap')
+checkAndCompileOldShader('doDisplace')
 
 # create an instance for the RenderMan interface
 ri = prman.Ri()
