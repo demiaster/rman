@@ -16,12 +16,13 @@ is .osl and the compiled shader is .oso If the shader source is newer than the
 compiled shader we will compile it. It also assumes that oslc is in the path.
 """
 def checkAndCompileShader(shader) :
-	if os.path.isfile(shader+'.oso') != True  or os.stat(shader+'.osl').st_mtime - os.stat(shader+'.oso').st_mtime > 0 :
-		print "compiling shader %s" %(shader)
-		try :
-			subprocess.check_call(["oslc", shader+".osl"])
-		except subprocess.CalledProcessError :
-			sys.exit("shader compilation failed")
+    shader = "shaders/" + shader
+    if os.path.isfile(shader+'.oso') != True  or os.stat(shader+'.osl').st_mtime - os.stat(shader+'.oso').st_mtime > 0 :
+        print "compiling shader %s" %(shader)
+        try :
+            subprocess.check_call(["oslc", shader+".osl"])
+        except subprocess.CalledProcessError :
+            sys.exit("shader compilation failed")
 
 # cube shape for the room
 def Room(width,height,depth) :
@@ -101,8 +102,9 @@ def Pin():
     ri.AttributeBegin()
     ri.Rotate(-90, 1, 0, 0)
     ri.Pattern("PxrOSL", "envmap", {
-                                    "string shader"  : "envmap",
-                                    "color Cin" : baseColorMetal
+                                    "string shader"  : "shaders/envmap",
+                                    "color Cin" : baseColorMetal,
+                                    "string image" : "office.tx"
     })
     ri.Bxdf( "PxrDisney","bxdf", { 
                                   "reference color baseColor" : ["envmap:Cout"],
@@ -136,11 +138,11 @@ def Pin():
                                       })
 
     ri.Pattern("PxrOSL","disk", {
-                                 "string shader"  : "disk",
+                                 "string shader"  : "shaders/disk",
                                  "float repetitions" : [2]
                                 })
 
-    ri.Displacement( "doDisplace", {
+    ri.Displacement( "shaders/doDisplace", {
                                 "reference float disp" : [ "disk:resultF" ],
                                 "float atten" : [1]
                                 })
@@ -171,17 +173,17 @@ def Pin():
                                       })
 
     ri.Pattern("PxrOSL","wave", {
-                                 "string shader"  : "wave",
+                                 "string shader"  : "shaders/wave",
                                  "float repetitions" : [2],
                                  "float height" : [0.005]
                                 })
 
-    ri.Displacement( "doDisplace", {
+    ri.Displacement( "shaders/doDisplace", {
                                     "reference float disp" : [ "wave:resultF" ],
                                     "float atten" : [1]
                                    })
     ri.Pattern("PxrBump","plasticBump",{
-                                        "string filename" : "scratch.tx",
+                                        "string filename" : "textures/scratch.tx",
                                         "float scale": 0.003,
                                         "int invertT" : 0
                                        })
@@ -213,16 +215,16 @@ def Pin():
                                       })
 
     ri.Pattern("PxrOSL","wave", {
-                                 "string shader"  : "wave",
+                                 "string shader"  : "shaders/wave",
                                  "int direction" : [1] 
                                 })
 
-    ri.Displacement( "doDisplace", {
+    ri.Displacement( "shaders/doDisplace", {
                                     "reference float disp" : [ "wave:resultF" ],
                                     "float atten" : [1]
                                    })
     ri.Pattern("PxrBump","plasticBump",{
-                                    "string filename" : "scratch.tx",
+                                    "string filename" : "textures/scratch.tx",
                                     "float scale": 0.0005,
                                     "int invertT" : 0
                                     })
@@ -250,11 +252,11 @@ def Pin():
                                       })
 
     ri.Pattern("PxrOSL","wave", {
-                                 "string shader"  : "wave",
+                                 "string shader"  : "shaders/wave",
                                  "int direction" : [1]
                                 })
 
-    ri.Displacement( "doDisplace", {
+    ri.Displacement( "shaders/doDisplace", {
                                     "reference float disp" : [ "wave:resultF" ],
                                     "float atten" : [1]
                                    })
@@ -280,18 +282,18 @@ def Pin():
                                       })
 
     ri.Pattern("PxrOSL","wave", {
-                                 "string shader"  : "wave",
+                                 "string shader"  : "shaders/wave",
                                  "float repetitions" : [2],
                                  "float height" : [0.003],
                                  "int direction" : [0]
                                 })
 
-    ri.Displacement( "doDisplace", {
+    ri.Displacement( "shaders/doDisplace", {
                                     "reference float disp" : [ "wave:resultF" ],
                                     "float atten" : [1]
                                    })
     ri.Pattern("PxrBump","plasticBump",{
-                                "string filename" : "scratch.tx",
+                                "string filename" : "textures/scratch.tx",
                                 "float scale": 0.003,
                                 "int invertT" : 0
                             })
@@ -319,10 +321,10 @@ def Pin():
                                       })
 
     ri.Pattern("PxrOSL","topdisk", {
-                                 "string shader"  : "topdisk" 
+                                 "string shader"  : "shaders/topdisk" 
                                 })
 
-    ri.Displacement( "doDisplace", {
+    ri.Displacement( "shaders/doDisplace", {
                                     "reference float disp" : [ "topdisk:resultF" ],
                                     "float atten" : [1]
                                    })
@@ -348,7 +350,7 @@ def Table():
     ri.ArchiveRecord(ri.COMMENT, '--Table Model Generated by Table Function--')
     ri.AttributeBegin()
     # ri.ShadingRate(8)
-    ri.ShadingRate(20)
+    # ri.ShadingRate(20)
     face = [12, 0, 12, 12, 0, -12, -12, 0, 12, -12, 0, -12]
     ri.Attribute("trace", {
                         "displacements" : [1]
@@ -358,22 +360,19 @@ def Table():
                                        "coordinatesystem" : ["shader"]
                                       })
     ri.Pattern("PxrOSL","paper", {
-                                 "string shader"  : "paper"
+                                 "string shader"  : "shaders/paper"
                                 })
-    ri.Displacement( "doDisplace", {
+    ri.Displacement( "shaders/doDisplace", {
                                 "reference float disp" : [ "paper:resultF" ],
                                 "float atten" : [1]
                                 })
 
-    ri.Pattern("PxrTexture", "myTexture", {"string filename" : ["paper.tx"],
+    ri.Pattern("PxrTexture", "myTexture", {"string filename" : ["textures/paper.tx"],
                                            "int invertT" : [ 0 ]
                                           })
-    # ri.Pattern("PxrBump","paper",{
-    #                         "string shader"  : "paper"
-    #                     })
+
     ri.Bxdf( "PxrDisney","bxdf", {
                                   "reference color baseColor" : ["myTexture:resultRGB"],
-                                #   "reference normal bumpNormal" : ["paper:resultF"],
                                   "float roughness" : [0.5],
                                   "float specular" : [0.1]
                                  })
@@ -410,7 +409,7 @@ ri.Display("scene.exr", "it", "rgba")
 ri.Format(1280,720,1)
 
 #Fix the sampling to 720 to reduce noise, put pixel variance low for better look. 
-ri.Hider("raytrace" ,{"int incremental" :[1], "int maxsamples" : 256, "int minsamples" : 256 })
+ri.Hider("raytrace" ,{"int incremental" :[1], "int maxsamples" : 512, "int minsamples" : 256 })
 ri.PixelVariance (0.01)
 ri.ShadingRate(10)
 
@@ -438,8 +437,8 @@ ri.AttributeBegin()
 ri.Declare("areaLight" ,"string")
 ri.AreaLightSource( "PxrStdAreaLight", {ri.HANDLEID:"areaLight", 
                                         "float exposure" : [9.5],
-                                        "float enableTemperature" : [1],
-                                        "float temperature" : [6700]
+                                        # "float enableTemperature" : [1],
+                                        # "float temperature" : [6700]
                                        })
 
 # ri.AttributeBegin()

@@ -1,0 +1,31 @@
+vector faceforward (vector N, vector I)
+{
+	return (dot(I,N)>0)?-N:N;
+}
+
+color myEnvironment(string filename,vector R)
+{
+	vector d=normalize(R);
+	float s = atan2(d[2],d[0])/(2*M_PI);
+	if(s<0)
+		s+=1;
+	s=1-s; //Wrap clockwise from the X axis...
+
+	float t = asin(d[1]);
+	t = t/M_PI+0.5;
+	t=1-t;
+
+	return (color)texture(filename,s,t);
+}
+
+shader envmap (
+	color Cin=1,
+	string image="office.tx",
+output	color Cout=1
+	)
+{
+    normal Nf = faceforward (normalize(N),I);
+    vector Rcurrent=reflect(I,Nf);
+    vector Rworld=transform("world",Rcurrent);
+    Cout=(color)myEnvironment(image,Rworld);
+}
