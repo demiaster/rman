@@ -459,6 +459,14 @@ ri.Translate(0,-4,5)
 # ri.fstop(1.0)
 # ri.focalDistance(100)
 # ri.focalLength(1.3)
+# fstop, focallength, focaldistance
+# ri.DepthOfField ( 0.1, 0.0001, 3)
+# ri.DepthOfField(2.8, 50, 5.6)
+# ri.DepthOfField(5.6, 1, 1)
+ri.DepthOfField(5.6, 0.9, 6.8)
+# ri.DepthOfField(5.6, 3, 8)
+# ri.DepthOfField(5.6, 1, 5)
+# ri.DepthOfField(2.8, 1, 6)
 
 # Begin The World
 ri.WorldBegin()
