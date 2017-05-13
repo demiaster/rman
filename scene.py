@@ -359,7 +359,7 @@ def Pin(color):
                                   "float clearcoat" : [1],
                                   "float roughness" : [0]
                                  })
-    ri.Disk(0, tc_radius, 360)
+    ri.Disk(0, tc_radius + 0.01, 360)
     ri.AttributeEnd()
 
     ri.TransformEnd()
@@ -439,6 +439,7 @@ ri.Format(1280,720,1)
 ri.Hider("raytrace" ,{"int incremental" :[1], "int maxsamples" : 512, "int minsamples" : 256 })
 ri.PixelVariance (0.01)
 ri.ShadingRate(10)
+# ri.Exposure(1, 2.2)
 
 #Use default to model, makes it easier.
 # ri.Integrator ("PxrDefault" , "integrator")
@@ -456,17 +457,9 @@ ri.Rotate(-30,1,0,0)
 ri.Translate(0,-4,5)
 
 # camera settings
-# ri.fstop(1.0)
-# ri.focalDistance(100)
-# ri.focalLength(1.3)
 # fstop, focallength, focaldistance
-# ri.DepthOfField ( 0.1, 0.0001, 3)
-# ri.DepthOfField(2.8, 50, 5.6)
-# ri.DepthOfField(5.6, 1, 1)
+
 ri.DepthOfField(5.6, 0.9, 6.8)
-# ri.DepthOfField(5.6, 3, 8)
-# ri.DepthOfField(5.6, 1, 5)
-# ri.DepthOfField(2.8, 1, 6)
 
 # Begin The World
 ri.WorldBegin()
@@ -554,6 +547,13 @@ Pin([0.9, 0.2, 0.2])
 ri.TransformEnd()
 
 ri.TransformEnd()
+
+# ri.TransformBegin()
+# ri.Translate(0, 3, -1)
+# ri.Rotate(-10, 1 ,0, 0)
+# ri.Rotate(180, 1,0, 0)
+# Pin([0.2,0.2,0.8])
+# ri.TransformEnd()
 
 # end of the world
 ri.WorldEnd()
