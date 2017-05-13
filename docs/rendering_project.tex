@@ -68,7 +68,7 @@ The thumb tack provided to be a suitable object for this project. Its shape resu
 
 The metal part was reconstructed using basic shapes such as a cone and a cylinder.
 The plastic part presented more interesting features such as the curved part connecting with the metal stick or the main plastic body. Looking closely at the real model plastic body, primitives such cylinders and cones were found not to be accurate enough to be used to faithfully reproduce the original silhouette.
-The final model consisted eventually of a flat hyperboloid to cover the base of the plastic body. An horizontal section of a sphere represented the curved part. On top of it, three different sized hyperboloids were used to achieved the main look for the thumb tack. The top part of the model was then closed with a disk.
+The final model consisted eventually of a flat hyperboloid to cover the base of the plastic body. An horizontal section of a sphere represented the curved part. On top of it, three different sized hyperboloids were used to achieve the main look for the thumb tack. The top part of the model was then closed with a disk.
 
 \begin{figure}[h]
   \centering
@@ -94,7 +94,7 @@ Those measurements have hence been tweaked to achieve a better outcome.
 In the scene we can identify three different materials such as plastic, metal and paper.
 
 \subsection{Plastic}
-When analyzing the real model in details, the surface appeared to be extremely smooth and shiny despite small scratches and imperfections spread across the surface. To correctly reproduce the base material, the \texttt{bxdf} RenderMan model was used, setting \texttt{clearcoat} and \texttt{specular} to \texttt{1} while the \texttt{roughness} value to \texttt{0}.
+When analysing the real model in details, the surface appeared to be extremely smooth and shiny despite small scratches and imperfections spread across the surface. To correctly reproduce the base material, the \texttt{bxdf} RenderMan model was used, setting \texttt{clearcoat} and \texttt{specular} to \texttt{1} while the \texttt{roughness} value to \texttt{0}.
 
 \subsection{Metal}
 The metal stick presented a varying roughness along the surface, being more noticeable on the pointy tip. The material was recreated using the \texttt{bxdf} material and setting the \texttt{metallic} property value to \texttt{1} for both the stick and pointy end, while the roughness was varied along the surface using a shader to achieve a look closer to the original model.
@@ -130,7 +130,7 @@ The shader allows the user to specify the number of creases and the displacement
 
 \subsection{Topdisk.osl}
 
-The shader aims to create a small depressed area on the top of the thumb tack. The model top disk appears to be flat around the edges while concave in the central area. The result is achieved using a smoothstep function starting from half of the radius distance from the center and the center itself.
+The shader aims to create a small depressed area on the top of the thumb tack. The model top disk appears to be flat around the edges while concave in the central area. The result is achieved using a smoothstep function starting from half of the radius distance from the centre and the centre itself.
 
 \begin{figure}[h!]
   \centering
@@ -142,7 +142,7 @@ The shader aims to create a small depressed area on the top of the thumb tack. T
 \newpage
 \subsection{Disk.osl}
 
-The disk was created for the thumb tack lower plastic part. In the beginning it was applied on a disk geometry but later during the project I remodeled it using a flat hyperboloid instead. The change was due to the difficulties that arose when shading the junction between the plastic and metal elements. The hyperboloid shape allowed me to have a hole in the middle with a radius that matched the metal pin one. The shader creates a first layer that deforms the surface according to the cosine function. Adjustments in the phase have been made to keep the position of the external edges unchanged. A displacement of the edge points would have lead to breaking the model. As a second layer, noise in the \texttt{v} coordinates achieves the creases in the radial direction.
+The disk was created for the thumb tack lower plastic part. In the beginning it was applied on a disk geometry but later during the project I remodelled it using a flat hyperboloid instead. The change was due to the difficulties that arose when shading the junction between the plastic and metal elements. The hyperboloid shape allowed me to have a hole in the middle with a radius that matched the metal pin one. The shader creates a first layer that deforms the surface according to the cosine function. Adjustments in the phase have been made to keep the position of the external edges unchanged. A displacement of the edge points would have lead to breaking the model. As a second layer, noise in the \texttt{v} coordinates achieves the creases in the radial direction.
 
 \begin{figure}[ht]
   \centering
