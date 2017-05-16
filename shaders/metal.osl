@@ -3,8 +3,6 @@ output float opacity = 0
 )
 {
     float vv = v + 0.05 * pnoise( u * 20, 4 );
-    //float m = aastep( 0, sin( vv * M_PI / width ) );
-    //stripes = mix( color1, color2, m );
     float lucid = .1;
     float opaque = 0.4;
 
