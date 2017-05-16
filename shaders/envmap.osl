@@ -1,3 +1,4 @@
+/// This function was originally written by Ian Stephenson
 vector faceforward (vector N, vector I)
 {
 	return (dot(I,N)>0)?-N:N;
@@ -29,3 +30,4 @@ output	color Cout=1
     vector Rworld=transform("world",Rcurrent);
     Cout=(color)myEnvironment(image,Rworld);
 }
+///
