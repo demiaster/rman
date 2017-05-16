@@ -452,7 +452,7 @@ ri.Translate(0,-4,5)
 
 # camera settings
 # fstop, focallength, focaldistance
-ri.DepthOfField(5.6, 0.9, 6.8)
+ri.DepthOfField(5.6, 0.6, 7.5)
 
 # Begin The World
 ri.WorldBegin()
@@ -499,36 +499,57 @@ ri.Rotate(-90, 0, 1, 0)
 Table()
 ri.TransformEnd()
 
+# first image
+# # create and move the pins
+# ri.TransformBegin()
+# ri.Translate(0.1, 0, -0.2)
+# ri.Rotate(-10, 0, 1, 0)
+
+# # first pin
+# ri.TransformBegin()
+# ri.Translate(-1.2, 0.6, 0.7)
+# ri.Rotate(-96, 0, 0, 1)
+# ri.Rotate(30, 1, 0, 0)
+# ri.Rotate(-20, 0, 1, 0)
+# Pin([0.2,0.2,0.8])
+# ri.TransformEnd()
+
+# # second pin
+# ri.TransformBegin()
+# ri.Translate(0.7, 1.72, 0.98)
+# ri.Rotate(156, 0, 0, 1)
+# ri.Rotate(50, 1, 0, 0)
+# Pin([0.9, 0.2, 0.2])
+# ri.TransformEnd()
+
+# ri.TransformEnd()
+
+#second image
 # create and move the pins
 ri.TransformBegin()
-ri.Translate(0.1, 0, -0.2)
-ri.Rotate(-10, 0, 1, 0)
+ri.Translate(-0.1, 0, -0.2)
+# ri.Rotate(-10, 0, 1, 0)
 
 # first pin
 ri.TransformBegin()
-ri.Translate(-1.2, 0.6, 0.7)
+ri.Translate(-1.9, 0.6, 0.7)
 ri.Rotate(-96, 0, 0, 1)
 ri.Rotate(30, 1, 0, 0)
-ri.Rotate(-20, 0, 1, 0)
-Pin([0.2,0.2,0.8])
+ri.Rotate(-30, 0, 1, 0)
+Pin([0.9, 0.2, 0.2])
 ri.TransformEnd()
 
 # second pin
 ri.TransformBegin()
-ri.Translate(0.7, 1.72, 0.98)
-ri.Rotate(156, 0, 0, 1)
-ri.Rotate(50, 1, 0, 0)
-Pin([0.9, 0.2, 0.2])
+ri.Translate(0.7, 0.55, 3.5)
+# ri.Rotate(156, 0, 0, 1)
+ri.Rotate(-94, 1, 0, 0)
+ri.Rotate(-15, 0, 0, 1)
+ri.Rotate(-40, 0, 1, 0)
+Pin([0.2, 0.8, 0.3])
 ri.TransformEnd()
 
 ri.TransformEnd()
-
-# ri.TransformBegin()
-# ri.Translate(0, 3, -1)
-# ri.Rotate(-10, 1 ,0, 0)
-# ri.Rotate(180, 1,0, 0)
-# Pin([0.2,0.2,0.8])
-# ri.TransformEnd()
 
 # end of the world
 ri.WorldEnd()
