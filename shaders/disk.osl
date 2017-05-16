@@ -1,5 +1,6 @@
 surface disk (
     float repetitions = 2,
+    float height = 0.02,
 output	float resultF = 0
 )
 {
@@ -15,5 +16,5 @@ output	float resultF = 0
     {
         inLine = s;
     }
-    resultF = inLine*0.02;
+    resultF = inLine*height;
 }
