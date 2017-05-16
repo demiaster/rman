@@ -2,8 +2,6 @@ surface paper (
 output	float resultF = 0
 )
 {
-    //float inLine = noise("perlin",P*101)*0.015;
     float inLine = noise("simplex",P*80)*0.0013;
     resultF = inLine;
-
 }
