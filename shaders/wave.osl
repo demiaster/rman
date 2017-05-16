@@ -20,7 +20,4 @@ output	float resultF = 0
     dist += noise("perlin",P*300)*0.007;
     float inLine = 1-smoothstep(0.005 - fuzz,0.005 + fuzz,dist);
     resultF = inLine*height;
-    //resultF += noise("perlin",P*5)*0.1;
-    //resultF += noise("perlin",P*50)*height;
-
 }
