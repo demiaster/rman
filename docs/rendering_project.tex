@@ -72,8 +72,8 @@ The final model consisted eventually of a flat hyperboloid to cover the base of 
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=6.3cm]{images/modelling.png}
-  \caption{Comparison: real model and computer generated geometry.}
+  \includegraphics[width=6.3cm]{images/modelling}
+  \caption{Comparison: real model and computer generated geometry}
   \label{fig:modelling}
 \end{figure}
 
@@ -83,7 +83,7 @@ Those measurements have hence been tweaked to achieve a better outcome.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=3.0in]{images/measurements.png}
+  \includegraphics[width=3.0in]{images/measurements}
   \caption{Some measurements on the models}
   \label{fig:measurements}
 \end{figure}
@@ -123,7 +123,7 @@ The shader allows the user to specify the number of creases and the displacement
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=3.0in]{images/wave.png}
+  \includegraphics[width=3.0in]{images/wave}
   \caption{Longitudinal creases achieved with wave shader}
   \label{fig:wave}
 \end{figure}
@@ -134,7 +134,7 @@ The shader aims to create a small depressed area on the top of the thumb tack. T
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=3.0in]{images/topdisk.png}
+  \includegraphics[width=3.0in]{images/topdisk}
   \caption{Concave area around the center}
   \label{fig:topdisk}
 \end{figure}
@@ -146,7 +146,7 @@ The disk was created for the thumb tack lower plastic part. In the beginning it 
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[height=2.9in]{images/disk.png}
+  \includegraphics[height=2.9in]{images/disk}
   \caption{Longitudinal creases achieved with wave shader}
   \label{fig:disk}
 \end{figure}
@@ -169,11 +169,26 @@ The metal shader changes the roughness value along the metal stick allowing a sm
 
 To make the final look more realistic, I used a texture as bump map to add scratches along the surface, using different scale values to fit the geometry current geometry.
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=3.0in]{images/scratchmap}
+  \caption{Scratchmap}
+  \label{fig:scratches}
+\end{figure}
+
 \section{Scene composition}
 
 As final shot composition, I arranged the scene as a macro image. I wanted it to be uniformly lit as it was staged in a modern office. The lighting in the scene consists therefore of an area light that provides the main light source and three different glowing sphere positioned at the sides of the object. To give the illusion of the object being placed in an office, I first tried to use a \texttt{PxrStdEnvMapLight} but the result was not satisfying. A shader that transferred the environment map to the reflection on the surfaces of the object managed to create the proper atmosphere. Other attempts to tune the atmosphere were done by changing the temperature of the light, even though they have not been used for the final pictures.
 
-The staging at this level of production was still missing depth. The object was made to stand out using the depth of field option. The tuning the three variables was carried on a trial and error basis. The final values was 5.6 for the \texttt{fstop}, 0.9 as \texttt{focal length} and \texttt{focal distance} of 6.8.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=3.0in]{images/office}
+  \caption{Environment map}
+  \label{fig:office}
+\end{figure}
+
+\newpage
+The staging at this level of production was still missing depth. The object was made to stand out using the depth of field option. Tuning the three variables was carried on a trial and error basis and final values were 5.6 for the \texttt{fstop}, 0.9 as \texttt{focal length} and \texttt{focal distance} of 6.8.
 
 \begin{figure}[ht]
   \centering
@@ -182,4 +197,17 @@ The staging at this level of production was still missing depth. The object was 
   \label{fig:blur}
 \end{figure}
 
+\section{Evaluation and Conclusion}
+
+The project was extremely interesting and gave me the opportunity to face and overcome many different problems. While developing the project, I realised that my planning schedule was unrealistic when compared to my actual speed. Even though it took me more time than scheduled, I am quite satisfied with the final result. During the developing process, I found it challenging to try and find the correct function to create the displacements patterns I was aiming for. Some more refined features can be implemented in future work such has having a smoother junction between the two metal pieces. Unfortunately, this has not been possible for me in the given amount of time.
+
+\section{References}
+
+Stephenson, I, 2003. Essential RenderMan. 2nd ed. Springer.
+
+Vitamin, 2014. Office Interior HDRI panorama. photograph. turbosquid.com. Available from: https://www.turbosquid.com/FullPreview/Index.cfm/ID/873989 [Accessed 16 May 2017].
+
+Golnabi, H., 2001. Diffuse Reflectance Measurements From Different Surfaces. Journal of Sciences, Islamic Republic of Iran, 12(4)
+
+Austris, 2014. Microscratches / Swirl marks / Spiderwebbing. photograph. SIA VISCORBEL. Available from: http://viscorbel.com/microscratches-swirl-marks-spiderwebbing-vray-tutorial/ [Accessed 16 May 2017].
 \end{document}
