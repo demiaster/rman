@@ -181,6 +181,23 @@ def Pin(color):
     ri.AttributeEnd()
     ri.TransformEnd()
 
+    # torus junction
+    ri.TransformBegin()
+    small_radius = 0.01
+    ri.Translate(0, small_radius, 0)
+    ri.TransformBegin()
+    ri.Rotate(-90, 1, 0, 0)
+    ri.AttributeBegin()
+
+    ri.Bxdf( "PxrDisney","bxdf", { 
+                                "color baseColor" : baseColorPlastic,
+                                "float clearcoat" : [1],
+                                "float roughness" : [0],
+                                })
+    ri.Torus(disk_radius - small_radius, small_radius, -100, 110, 360)
+    ri.AttributeEnd()
+    ri.TransformEnd()
+
     # bowly shaped part
     ri.TransformBegin()
     ri.AttributeBegin()
@@ -358,9 +375,10 @@ def Pin(color):
                                   "float clearcoat" : [1],
                                   "float roughness" : [0]
                                  })
-    ri.Disk(0, tc_radius + 0.01, 360)
+    ri.Disk(0, tc_radius + 0.005, 360)
     ri.AttributeEnd()
 
+    ri.TransformEnd()
     ri.TransformEnd()
     ri.TransformEnd()
     ri.TransformEnd()
@@ -452,6 +470,9 @@ ri.Translate(0,-4,5)
 
 # camera settings
 # fstop, focallength, focaldistance
+# first image
+ri.DepthOfField(5.6, 0.9, 6.8)
+# second image
 ri.DepthOfField(5.6, 0.6, 7.5)
 
 # Begin The World
@@ -528,7 +549,6 @@ ri.TransformEnd()
 # create and move the pins
 ri.TransformBegin()
 ri.Translate(-0.1, 0, -0.2)
-# ri.Rotate(-10, 0, 1, 0)
 
 # first pin
 ri.TransformBegin()
@@ -542,8 +562,7 @@ ri.TransformEnd()
 # second pin
 ri.TransformBegin()
 ri.Translate(0.7, 0.55, 3.5)
-# ri.Rotate(156, 0, 0, 1)
-ri.Rotate(-94, 1, 0, 0)
+ri.Rotate(-94.5, 1, 0, 0)
 ri.Rotate(-15, 0, 0, 1)
 ri.Rotate(-40, 0, 1, 0)
 Pin([0.2, 0.8, 0.3])
