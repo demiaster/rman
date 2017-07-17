@@ -27,4 +27,5 @@ Tested on: RenderManProServer (python engine 2.7).
     
 ## Examples
 
-![alt text](https://github.com/demiaster/rman/blob/master/docs/images/teaser.png "Red and Blue Pins")
+![alt text](https://github.com/demiaster/rman/blob/master/final_images/scene_1.png "Red and Blue Pins")
+![alt text](https://github.com/demiaster/rman/blob/master/final_images/scene_2.png "Red and Green Pins")
